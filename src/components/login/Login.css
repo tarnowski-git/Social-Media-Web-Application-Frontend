@@ -1,0 +1,46 @@
+.Login {
+    background-color: white;
+    width: 300px;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    /* -webkit-box-shadow: 3px 3px 30px 5px rgba(204, 204, 204, 0.9);
+    -moz-box-shadow: 3px 3px 30px 5px rgba(204, 204, 204, 0.9);
+    box-shadow: 3px 3px 30px 5px rgba(204, 204, 204, 0.9); */
+}
+
+.LoginHeader {
+    margin: 0 auto;
+    max-width: 320px;
+    padding: 0 0 20px;
+    color: #666666;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 300px;
+    background-color: #efefef;
+    color: #666666;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    outline: none;
+    margin-top: 10px;
+}
+
+input[type="submit"] {
+    width: 300px;
+    background-color: #36b03c;
+    font-size: 20px;
+    color: white;
+    padding: 15px 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    outline: none;
+}
