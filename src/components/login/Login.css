@@ -1,10 +1,16 @@
+.Form {
+    margin-top: 20%;
+    margin-bottom: 20%;
+    height: inherit;
+}
+
 .Login {
     background-color: white;
     width: 300px;
     padding: 50px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    margin-top: auto;
     /* -webkit-box-shadow: 3px 3px 30px 5px rgba(204, 204, 204, 0.9);
     -moz-box-shadow: 3px 3px 30px 5px rgba(204, 204, 204, 0.9);
     box-shadow: 3px 3px 30px 5px rgba(204, 204, 204, 0.9); */

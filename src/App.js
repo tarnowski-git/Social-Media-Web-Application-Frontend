@@ -4,9 +4,10 @@ import "./App.css";
 
 import Registration from "./components/registration/Registration";
 import Login from "./components/login/Login";
-import Nav from "./components/pages/Nav";
-import About from "./components/pages/About";
+import NavigationBar from "./components/NavigationBar";
+import About from "./components/About";
 import Home from "./components/home/Home";
+import Footer from "./components/Footer";
 
 class App extends Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class App extends Component {
         };
 
         this.updateUsername.bind(this);
+        this.logginHandle.bind(this);
     }
 
     logginHandle = () => {
@@ -34,38 +36,31 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <Nav
+                    <NavigationBar
                         username={this.state}
                         updateUsername={this.updateUsername}
                         logginHandle={this.logginHandle}
                     />
-                    <header className="App-header">
-                        {/* <Switch> returns only one first matching route. */}
-                        <Switch>
-                            <Route
-                                path="/"
-                                exact
-                                render={() => (
-                                    <Login
-                                        updateUsername={this.updateUsername}
-                                        logginHandle={this.logginHandle}
-                                    />
-                                )}
+                    {/* <Switch> returns only one first matching route. */}
+                    <Switch>
+                        <Route exact path="/">
+                            <Login
+                                updateUsername={this.updateUsername}
+                                logginHandle={this.logginHandle}
                             />
-                            <Route
-                                path="/registration"
-                                component={Registration}
-                            />
-                            <Route path="/about" component={About} />
-                            <Route
-                                path="/home"
-                                render={() => (
-                                    <Home logged={this.state.loggedIn} />
-                                )}
-                            />
-                            <Route path="*" component={() => "404 Not Found"} />
-                        </Switch>
-                    </header>
+                        </Route>
+                        <Route exact path="/registration">
+                            <Registration />
+                        </Route>
+                        <Route exact path="/about">
+                            <About />
+                        </Route>
+                        <Route exact path="/home">
+                            <Home logged={this.state.loggedIn} />
+                        </Route>
+                        <Route path="*" component={() => "404 Not Found"} />
+                    </Switch>
+                    <Footer />
                 </div>
             </BrowserRouter>
         );

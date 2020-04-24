@@ -33,7 +33,7 @@ class Login extends Component {
             .then((response) => {
                 if (response.status === 200) {
                     alert("Login successful! You are now logged in :)");
-                    // local storage
+                    // session storage
                     sessionStorage.setItem("username", username);
                     this.props.updateUsername();
                     this.props.logginHandle();
@@ -53,24 +53,17 @@ class Login extends Component {
         // Its for prevent reloading the page.
         event.preventDefault();
 
-        console.log("change");
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
     };
 
     handleSubmit = (event) => {
         // Its for prevent reloading the page.
         event.preventDefault();
 
-        console.log("submmit!");
         console.log(this.state.username + "," + this.state.password);
         this.loginUser(this.state.username, this.state.password);
-
-        // // Start test
-        // sessionStorage.setItem("username", this.state.username);
-        // this.props.updateUsername();
-        // this.props.logginHandle();
-        // this.setState({ redirectToHomepage: true });
-        // // end test
     };
 
     render() {
@@ -79,27 +72,28 @@ class Login extends Component {
         if (this.state.redirectToHomepage === true) {
             return <Redirect to={"/home"} />;
         }
-
         return (
-            <div className="Login">
-                <h1 className="LoginHeader">Login</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        type="text"
-                        name="username"
-                        value={username}
-                        placeholder="login"
-                        onChange={this.handleChange}
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        value={password}
-                        placeholder="password"
-                        onChange={this.handleChange}
-                    />
-                    <input type="submit" value="Login" />
-                </form>
+            <div className="Form">
+                <div className="Login">
+                    <h1 className="LoginHeader">Login</h1>
+                    <form onSubmit={this.handleSubmit}>
+                        <input
+                            type="text"
+                            name="username"
+                            value={username}
+                            placeholder="login"
+                            onChange={this.handleChange}
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            placeholder="password"
+                            onChange={this.handleChange}
+                        />
+                        <input type="submit" value="Login" />
+                    </form>
+                </div>
             </div>
         );
     }

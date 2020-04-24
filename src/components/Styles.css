@@ -1,14 +1,26 @@
+header {
+    /* The element is positioned relative to its first positioned 
+    (not static) ancestor element */
+    display: flex;
+    width: 100%;
+
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    background-color: #2b1f1f;
+}
+
 nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 10vh;
-    background-color: #2b1f1f;
+    /* min-height: 10vh; */
+    min-width: 80%;
     color: rgb(238, 240, 240);
 }
 
 .nav-links {
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -36,23 +48,12 @@ a:active {
 }
 
 .header img {
-    display: flex;
     width: 50px;
     height: 50px;
-}
-
-.header h1 {
-    position: relative;
-    top: 18px;
-    left: 10px;
+    margin-left: 20px;
 }
 
 .user-avatar {
-    display: flex;
     color: white;
-    align-items: flex-end;
-}
-
-.clearfix {
-    clear: both;
+    margin-right: 20px;
 }
