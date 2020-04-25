@@ -20,15 +20,16 @@ class Home extends Component {
 
     componentDidMount() {
         if (sessionStorage.getItem("username") !== null) {
-            console.log("User logged in!!");
-            fetch("http://localhost:8080/posts")
-                .then((response) => response.json())
-                .then((posts) => {
-                    console.log(posts);
-                    this.setState({ posts });
+            const url = "http://localhost:8080/posts";
+            fetch(url)
+                .then((response) => response.json()) // Transform the data into json
+                .then((data) => {
+                    let post = data;
+                    console.log(post);
+                    this.setState({ post });
                 })
                 .catch((error) => {
-                    alert("error");
+                    alert("error" + error);
                 });
         } else {
             this.setState({ redirect: true });

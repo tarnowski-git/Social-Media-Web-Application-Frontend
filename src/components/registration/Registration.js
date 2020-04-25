@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./Registration.css";
 
 class Registration extends Component {
@@ -17,7 +18,8 @@ class Registration extends Component {
 
     // Its a call to webservice
     registerUser(username, password) {
-        fetch("http://localhost:8080/users", {
+        const url = "http://localhost:8080/users";
+        fetch(url, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -38,7 +40,7 @@ class Registration extends Component {
                 }
             })
             .catch((error) => {
-                alert("error");
+                alert("error: " + error);
             });
     }
 
@@ -66,12 +68,14 @@ class Registration extends Component {
             <div className="Register">
                 <h1 className="RegisterHeader">Register</h1>
                 <form onSubmit={this.handleSubmit}>
+                    <input type="text" name="first" placeholder="first name" />
+                    <input type="text" name="last" placeholder="last name" />
                     <input
                         type="text"
                         onChange={this.handleChange}
                         name="username"
                         value={username}
-                        placeholder="name"
+                        placeholder="login"
                     />
                     <input
                         type="password"
@@ -80,7 +84,10 @@ class Registration extends Component {
                         value={password}
                         placeholder="password"
                     />
-                    <input type="submit" value="Register" />
+                    <input type="submit" value="Submit" />
+                    <p className="sign-link">
+                        Already have an account? <Link to="/">Sign In</Link>
+                    </p>
                 </form>
             </div>
         );

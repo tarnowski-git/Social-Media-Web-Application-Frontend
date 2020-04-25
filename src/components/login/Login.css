@@ -50,3 +50,10 @@ input[type="submit"] {
     letter-spacing: 2px;
     outline: none;
 }
+.sign-link {
+    font-size: 15px;
+}
+
+.sign-link a:visited {
+    color: blue;
+}

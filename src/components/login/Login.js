@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Login.css";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 class Login extends Component {
     constructor(props) {
@@ -19,7 +19,8 @@ class Login extends Component {
 
     // Its a call to webservice
     loginUser(username, password) {
-        fetch("http://localhost:8080/login", {
+        const url = "http://localhost:8080/login";
+        fetch(url, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -45,7 +46,7 @@ class Login extends Component {
                 }
             })
             .catch((error) => {
-                alert("error");
+                alert("error: " + error);
             });
     }
 
@@ -92,6 +93,9 @@ class Login extends Component {
                             onChange={this.handleChange}
                         />
                         <input type="submit" value="Login" />
+                        <p className="sign-link">
+                            New User? <Link to="/registration">Sign Up</Link>
+                        </p>
                     </form>
                 </div>
             </div>
