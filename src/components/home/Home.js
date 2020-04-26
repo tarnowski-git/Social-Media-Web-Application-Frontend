@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import Post from "../post/Post";
+import SinglePost from "../post/SinglePost";
+import AddPost from "../post/AddPost";
 
 class Home extends Component {
     constructor(props) {
@@ -8,9 +9,15 @@ class Home extends Component {
 
         this.state = {
             redirect: false,
-            posts: [],
+            listOfPosts: [],
+            test: [1, 2, 3],
         };
     }
+
+    onAddItem = (post) => {
+        const updatedList = [...this.state.listOfPosts, post];
+        this.setState({ listOfPosts: updatedList });
+    };
 
     componentDidUpdate(prevProps) {
         if (prevProps.logged !== this.props.logged) {
@@ -24,9 +31,8 @@ class Home extends Component {
             fetch(url)
                 .then((response) => response.json()) // Transform the data into json
                 .then((data) => {
-                    let post = data;
-                    console.log(post);
-                    this.setState({ post });
+                    console.log(data);
+                    data.map((post) => this.onAddItem(post));
                 })
                 .catch((error) => {
                     alert("error" + error);
@@ -34,6 +40,7 @@ class Home extends Component {
         } else {
             this.setState({ redirect: true });
         }
+        // <SinglePost key={post.id} post={post} />
     }
 
     render() {
@@ -43,9 +50,12 @@ class Home extends Component {
 
         return (
             <div>
-                {this.state.posts.map((post) => (
-                    <Post key={post.id} post={post} />
-                ))}
+                <AddPost />
+                <ul>
+                    {this.state.listOfPosts.map((post) => (
+                        <li key={post.id}>{post.body}</li>
+                    ))}
+                </ul>
             </div>
         );
     }

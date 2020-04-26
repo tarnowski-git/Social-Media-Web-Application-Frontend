@@ -33,16 +33,22 @@ class Login extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    alert("Login successful! You are now logged in :)");
+                    // trick for async alerts
+                    setTimeout(function () {
+                        alert("Login successful! You are now logged in :)");
+                    }, 1);
+
                     // session storage
                     sessionStorage.setItem("username", username);
                     this.props.updateUsername();
                     this.props.logginHandle();
                     this.setState({ redirectToHomepage: true });
                 } else {
-                    alert(
-                        "Wrong credentials! Username and/or password is wrong :("
-                    );
+                    setTimeout(function () {
+                        alert(
+                            "Wrong credentials! Username and/or password is wrong :("
+                        );
+                    }, 1);
                 }
             })
             .catch((error) => {
