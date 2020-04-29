@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function PostList() {
+function PostList() {
+    const [posts, setPosts] = useState([]);
+
     useEffect(() => {
         const getAllThePosts = () => {
             if (sessionStorage.getItem("username") !== null) {
@@ -9,8 +11,7 @@ export default function PostList() {
                     .then((response) => response.json()) // Transform the data into json
                     .then((data) => {
                         let post = data;
-                        console.log(post);
-                        this.setState({ post });
+                        setPosts([post]);
                     })
                     .catch((error) => {
                         alert("error" + error);
@@ -28,3 +29,5 @@ export default function PostList() {
 
     return <div></div>;
 }
+
+export default PostList;

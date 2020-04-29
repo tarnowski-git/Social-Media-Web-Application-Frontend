@@ -1,0 +1,101 @@
+.AddPostForm {
+    color: grey;
+    display: inline-block;
+    box-shadow: 6px 6px 8px 6px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.AddPostForm textarea {
+    display: flex;
+    border: 1px solid #888;
+    outline: none;
+    resize: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.AddPostForm button {
+    display: flex;
+    margin-left: 20px;
+}
+
+.ProfilCard {
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2);
+    max-width: 250px;
+    margin: auto;
+    text-align: center;
+}
+
+.ProfilCard img {
+    width: 100%;
+}
+
+.title {
+    color: grey;
+    font-size: 18px;
+}
+
+.column {
+    display: flex;
+    min-height: 100vh;
+}
+
+.left {
+    flex: 50%;
+}
+
+.right {
+    flex: 50%;
+    text-align: left;
+}
+
+/* ====================== */
+div.PostFrame {
+    float: left;
+    width: 400px;
+    padding: 15px;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+div.PostFrame span {
+    margin: 0 42px 0 0;
+}
+
+span.name {
+    font-size: 20px;
+    color: grey;
+}
+
+span.time {
+    font-size: 12px;
+    color: white;
+}
+
+div.avatar {
+    margin: 0 20px 0 13px;
+    float: left;
+    width: 50px;
+}
+
+div.avatar img {
+    width: 100%;
+    border-radius: 100px;
+}
+
+.PostFrame p {
+    margin: 5px 50px 0 90px;
+    padding: 0;
+    text-align: justify;
+    line-height: 1.5;
+    word-wrap: break-word;
+}

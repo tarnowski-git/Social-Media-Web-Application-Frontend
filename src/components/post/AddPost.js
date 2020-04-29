@@ -11,6 +11,42 @@ export class AddPost extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    addPost(username, post) {
+        console.log(post);
+        const url = "http://localhost:8080/posts";
+        fetch(url, {
+            method: "POST",
+            redirect: "follow",
+            headers: {
+                "Content-Type": "application/json",
+                username: username,
+                Accept: "application/json",
+            },
+            body: post,
+        })
+            .then((response) =>
+                response
+                    .json()
+                    .then((data) => ({ status: response.status, body: data }))
+            )
+            .then((obj) => {
+                if (obj.status === 200) {
+                    setTimeout(function () {
+                        alert("Post added.");
+                    }, 1);
+                    this.props.onAddItem(obj.body);
+                } else {
+                    alert("Ups, somethings went wrong :/");
+                }
+                console.log(obj);
+            })
+            .catch((error) => {
+                alert("error: " + error);
+            });
+        // cleaning a textarea
+        this.setState({ textareaValue: "" });
+    }
+
     handleChange = (event) => {
         // Its for prevent reloading the page.
         event.preventDefault();
@@ -24,23 +60,33 @@ export class AddPost extends Component {
         // Its for prevent reloading the page.
         event.preventDefault();
 
-        console.log(this.state.textareaValue);
-        // for funtion to
+        const post = this.state.textareaValue;
+        const activeUser = sessionStorage.getItem("username");
+
+        console.log(post);
+
+        if (activeUser !== null) {
+            this.addPost(activeUser, post);
+        }
     };
 
     render() {
         return (
-            <div>
-                <p>Your post...</p>
-                <form>
+            <div className="AddPostForm">
+                <h1 className="AddPostHeader">Add post</h1>
+                <form onSubmit={this.handleSubmit}>
                     <textarea
-                        rows={10}
+                        rows={3}
                         cols={30}
                         value={this.state.textareaValue}
                         onChange={this.handleChange}
+                        placeholder="write here..."
+                        maxLength={120}
                     ></textarea>
+                    <button type="submit" value="Submit">
+                        Post
+                    </button>
                 </form>
-                <input type="submit" value="Post" />
             </div>
         );
     }

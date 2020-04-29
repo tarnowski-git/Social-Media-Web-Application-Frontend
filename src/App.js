@@ -18,8 +18,8 @@ class App extends Component {
             loggedIn: false,
         };
 
-        this.updateUsername.bind(this);
-        this.logginHandle.bind(this);
+        this.updateUsername = this.updateUsername.bind(this);
+        this.logginHandle = this.logginHandle.bind(this);
     }
 
     logginHandle = () => {

@@ -3,7 +3,6 @@ header {
     (not static) ancestor element */
     display: flex;
     width: 100%;
-
     justify-content: space-between;
     align-items: center;
     color: #ffffff;
@@ -14,7 +13,6 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* min-height: 10vh; */
     min-width: 80%;
     color: rgb(238, 240, 240);
 }

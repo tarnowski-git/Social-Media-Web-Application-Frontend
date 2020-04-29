@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import SinglePost from "../post/SinglePost";
+import "./Home.css";
 import AddPost from "../post/AddPost";
+import Profile from "../profile/Profile";
+import SinglePost from "../post/SinglePost";
 
 class Home extends Component {
     constructor(props) {
@@ -10,8 +12,9 @@ class Home extends Component {
         this.state = {
             redirect: false,
             listOfPosts: [],
-            test: [1, 2, 3],
         };
+
+        this.onAddItem = this.onAddItem.bind(this);
     }
 
     onAddItem = (post) => {
@@ -50,12 +53,22 @@ class Home extends Component {
 
         return (
             <div>
-                <AddPost />
-                <ul>
-                    {this.state.listOfPosts.map((post) => (
-                        <li key={post.id}>{post.body}</li>
-                    ))}
-                </ul>
+                <div className="column">
+                    <div className="left">
+                        <Profile />
+                    </div>
+                    <div className="right">
+                        <AddPost onAddItem={this.onAddItem} />
+                        {this.state.listOfPosts.map((post) => (
+                            <SinglePost key={post.id} post={post} />
+                        ))}
+                        {/* <ul>
+                            {this.state.listOfPosts.map((post) => (
+                                <li key={post.id}>{post.body}</li>
+                            ))}
+                        </ul> */}
+                    </div>
+                </div>
             </div>
         );
     }
