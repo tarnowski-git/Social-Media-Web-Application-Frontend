@@ -28,7 +28,7 @@ class Home extends Component {
         event.preventDefault();
         // copy an array in State to new object
         const url = "http://localhost:8080/posts?id=" + postId;
-        console.log(url);
+        console.log("Delete: " + url);
         fetch(url, {
             method: "DELETE",
         })
@@ -37,19 +37,48 @@ class Home extends Component {
                     setTimeout(function () {
                         alert("Post deleted.");
                     }, 1);
+                    const posts = Object.assign([], this.state.listOfPosts);
+                    const filteredPost = posts.filter((post) => {
+                        return post.id !== postId;
+                    });
+                    this.setState({ listOfPosts: filteredPost }); //replacing data
                 } else {
-                    setTimeout(function () {
-                        alert("Something wrong with Post deleting.");
-                    }, 1);
+                    alert("Something went wrong with Post deleting.");
                 }
             })
             .catch((error) => console.log("error", error));
+    };
 
-        const posts = Object.assign([], this.state.listOfPosts);
-        const filteredPost = posts.filter((post) => {
-            return post.id !== postId;
-        });
-        this.setState({ listOfPosts: filteredPost }); //replacing a
+    onUpdateItem = (postId, updatedPostContent) => {
+        const url = "http://localhost:8080/posts?id=" + postId;
+        console.log("Put: " + url);
+        console.log("content: " + updatedPostContent);
+
+        fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8", // Indicates the content
+            },
+            body: updatedPostContent,
+        })
+            .then((response) =>
+                response
+                    .json()
+                    .then((data) => ({ status: response.status, body: data }))
+            )
+            .then((obj) => {
+                if (obj.status === 200) {
+                    setTimeout(function () {
+                        alert("Post updated.");
+                    }, 1);
+                } else {
+                    alert("Ups, somethings went wrong :/");
+                }
+                console.log(obj);
+            })
+            .catch((error) => {
+                alert("error: " + error);
+            });
     };
 
     componentDidUpdate(prevProps) {
@@ -94,6 +123,10 @@ class Home extends Component {
                                 postId={post.id}
                                 postOwnerName={post.user.username}
                                 deleteEvent={this.onDeleteItem.bind(
+                                    this,
+                                    post.id
+                                )}
+                                updateEvent={this.onUpdateItem.bind(
                                     this,
                                     post.id
                                 )}
