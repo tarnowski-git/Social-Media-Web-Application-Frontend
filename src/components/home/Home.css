@@ -2,18 +2,22 @@
     color: grey;
     display: inline-block;
     box-shadow: 6px 6px 8px 6px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    border-style: dotted;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
-    padding-bottom: 10px;
     text-align: center;
-    border-radius: 10px;
+
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
 }
 
 .AddPostForm textarea {
     display: flex;
     border: 1px solid #888;
+    width: 100%;
     outline: none;
     resize: none;
     margin-left: auto;
@@ -22,7 +26,6 @@
 
 .AddPostForm button {
     display: flex;
-    margin-left: 20px;
 }
 
 .ProfilCard {
@@ -72,19 +75,22 @@ div.PostFrame span {
 }
 
 span.name {
+    float: left;
     font-size: 20px;
     color: grey;
+    width: 100%;
 }
 
 span.time {
     font-size: 12px;
     color: white;
+    width: 100%;
 }
 
 div.avatar {
     margin: 0 20px 0 13px;
     float: left;
-    width: 50px;
+    width: 20%;
 }
 
 div.avatar img {
@@ -98,4 +104,72 @@ div.avatar img {
     text-align: justify;
     line-height: 1.5;
     word-wrap: break-word;
+}
+
+.PostFrame > .bodyPost {
+    font: 13px Tahoma, cursive;
+    min-height: 70px;
+    width: 100%;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    margin: auto;
+    word-wrap: break-word;
+    /* outline: none; */
+    overflow: hidden;
+    resize: none;
+    line-height: 1.5;
+}
+
+.TopBar {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.name-time {
+    float: left;
+    width: 70%;
+}
+
+.dropdown {
+    position: relative;
+    width: 10%;
+    float: right;
+}
+
+.dropbtn {
+    background-color: #4caf50;
+    color: white;
+    padding: 5px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 3px 3px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: gray;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
 }

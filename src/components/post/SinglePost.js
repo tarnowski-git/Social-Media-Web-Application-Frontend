@@ -8,17 +8,43 @@ class SinglePost extends Component {
     // }
 
     render() {
+        const currentUser = sessionStorage.getItem("username");
+
         return (
             <div>
                 <div className="PostFrame">
-                    <div className="avatar">
-                        <img src={avatar} alt={"avatar"} />
+                    <div className="TopBar">
+                        <div className="avatar">
+                            <img src={avatar} alt={"avatar"} />
+                        </div>
+                        <div className="name-time">
+                            <span className="name">
+                                {this.props.postOwnerName}
+                                {this.props.postId}
+                            </span>
+                            <span className="time">Time</span>
+                        </div>
+
+                        {this.props.postOwnerName === currentUser && (
+                            <div className="dropdown">
+                                <button className="dropbtn">...</button>
+                                <div className="dropdown-content">
+                                    <a href="/home">Edit</a>
+                                    <a
+                                        href="/home"
+                                        onClick={this.props.deleteEvent}
+                                    >
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                    <span className="name">
-                        {this.props.post.user.username}
-                    </span>
-                    <span className="time">Time</span>
-                    <p>{this.props.post.body}</p>
+                    <textarea
+                        value={this.props.children}
+                        readOnly={true}
+                        className="bodyPost"
+                    />
                 </div>
             </div>
         );

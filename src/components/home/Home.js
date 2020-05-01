@@ -15,11 +15,41 @@ class Home extends Component {
         };
 
         this.onAddItem = this.onAddItem.bind(this);
+        // this.onDeleteItem = this.onDeleteItem.bind(this);
     }
 
     onAddItem = (post) => {
-        const updatedList = [...this.state.listOfPosts, post];
+        const updatedList = [post, ...this.state.listOfPosts];
         this.setState({ listOfPosts: updatedList });
+    };
+
+    // event its need to be the last argument
+    onDeleteItem = (postId, event) => {
+        event.preventDefault();
+        // copy an array in State to new object
+        const url = "http://localhost:8080/posts?id=" + postId;
+        console.log(url);
+        fetch(url, {
+            method: "DELETE",
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    setTimeout(function () {
+                        alert("Post deleted.");
+                    }, 1);
+                } else {
+                    setTimeout(function () {
+                        alert("Something wrong with Post deleting.");
+                    }, 1);
+                }
+            })
+            .catch((error) => console.log("error", error));
+
+        const posts = Object.assign([], this.state.listOfPosts);
+        const filteredPost = posts.filter((post) => {
+            return post.id !== postId;
+        });
+        this.setState({ listOfPosts: filteredPost }); //replacing a
     };
 
     componentDidUpdate(prevProps) {
@@ -30,7 +60,7 @@ class Home extends Component {
 
     componentDidMount() {
         if (sessionStorage.getItem("username") !== null) {
-            const url = "http://localhost:8080/posts";
+            const url = "http://localhost:8080/posts/all";
             fetch(url)
                 .then((response) => response.json()) // Transform the data into json
                 .then((data) => {
@@ -38,12 +68,11 @@ class Home extends Component {
                     data.map((post) => this.onAddItem(post));
                 })
                 .catch((error) => {
-                    alert("error" + error);
+                    alert("error: " + error);
                 });
         } else {
             this.setState({ redirect: true });
         }
-        // <SinglePost key={post.id} post={post} />
     }
 
     render() {
@@ -60,13 +89,18 @@ class Home extends Component {
                     <div className="right">
                         <AddPost onAddItem={this.onAddItem} />
                         {this.state.listOfPosts.map((post) => (
-                            <SinglePost key={post.id} post={post} />
+                            <SinglePost
+                                key={post.id}
+                                postId={post.id}
+                                postOwnerName={post.user.username}
+                                deleteEvent={this.onDeleteItem.bind(
+                                    this,
+                                    post.id
+                                )}
+                            >
+                                {post.body}
+                            </SinglePost>
                         ))}
-                        {/* <ul>
-                            {this.state.listOfPosts.map((post) => (
-                                <li key={post.id}>{post.body}</li>
-                            ))}
-                        </ul> */}
                     </div>
                 </div>
             </div>
