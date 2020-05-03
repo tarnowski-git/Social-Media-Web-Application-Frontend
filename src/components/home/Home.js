@@ -121,7 +121,9 @@ class Home extends Component {
                             <SinglePost
                                 key={post.id}
                                 postId={post.id}
-                                postOwnerName={post.user.username}
+                                postOwnerName={
+                                    post.user.first + " " + post.user.last
+                                }
                                 deleteEvent={this.onDeleteItem.bind(
                                     this,
                                     post.id

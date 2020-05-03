@@ -9,6 +9,8 @@ class Registration extends Component {
         this.state = {
             username: "",
             password: "",
+            first: "",
+            last: "",
         };
 
         // This binding is necessary to make `this` work in the callback
@@ -17,7 +19,7 @@ class Registration extends Component {
     }
 
     // Its a call to webservice
-    registerUser(username, password) {
+    registerUser(username, password, firstName, lastName) {
         const url = "http://localhost:8080/users";
         fetch(url, {
             method: "POST",
@@ -28,6 +30,8 @@ class Registration extends Component {
             body: JSON.stringify({
                 username: username,
                 password: password,
+                first: firstName,
+                last: lastName,
             }),
         })
             .then((response) => {
@@ -56,20 +60,41 @@ class Registration extends Component {
         // Its for prevent reloading the page.
         event.preventDefault();
 
-        console.log("submmit!");
-        console.log(this.state.username + "," + this.state.password);
-        this.registerUser(this.state.username, this.state.password);
+        this.registerUser(
+            this.state.username,
+            this.state.password,
+            this.state.first,
+            this.state.last
+        );
+        this.setState({
+            username: "",
+            password: "",
+            first: "",
+            last: "",
+        });
     };
 
     render() {
-        const { username, password } = this.state;
+        const { username, password, first, last } = this.state;
 
         return (
             <div className="Register">
                 <h1 className="RegisterHeader">Register</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="first" placeholder="first name" />
-                    <input type="text" name="last" placeholder="last name" />
+                    <input
+                        type="text"
+                        onChange={this.handleChange}
+                        name="first"
+                        value={first}
+                        placeholder="first name"
+                    />
+                    <input
+                        type="text"
+                        onChange={this.handleChange}
+                        name="last"
+                        value={last}
+                        placeholder="last name"
+                    />
                     <input
                         type="text"
                         onChange={this.handleChange}
