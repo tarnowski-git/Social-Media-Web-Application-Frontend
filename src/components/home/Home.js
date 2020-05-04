@@ -15,7 +15,6 @@ class Home extends Component {
         };
 
         this.onAddItem = this.onAddItem.bind(this);
-        // this.onDeleteItem = this.onDeleteItem.bind(this);
     }
 
     onAddItem = (post) => {
@@ -28,7 +27,6 @@ class Home extends Component {
         event.preventDefault();
         // copy an array in State to new object
         const url = "http://localhost:8080/posts?id=" + postId;
-        console.log("Delete: " + url);
         fetch(url, {
             method: "DELETE",
         })
@@ -43,7 +41,7 @@ class Home extends Component {
                     });
                     this.setState({ listOfPosts: filteredPost }); //replacing data
                 } else {
-                    alert("Something went wrong with Post deleting.");
+                    alert("Something went wrong with post deleting.");
                 }
             })
             .catch((error) => console.log("error", error));
@@ -51,9 +49,6 @@ class Home extends Component {
 
     onUpdateItem = (postId, updatedPostContent) => {
         const url = "http://localhost:8080/posts?id=" + postId;
-        console.log("Put: " + url);
-        console.log("content: " + updatedPostContent);
-
         fetch(url, {
             method: "PUT",
             headers: {

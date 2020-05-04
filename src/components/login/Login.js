@@ -32,24 +32,39 @@ class Login extends Component {
             }),
         })
             .then((response) => {
-                if (response.status === 200) {
-                    // trick for async alerts
-                    setTimeout(function () {
-                        alert("Login successful! You are now logged in :)");
-                    }, 1);
-
-                    // session storage
-                    sessionStorage.setItem("username", username);
-                    this.props.updateUsername();
-                    this.props.logginHandle();
-                    this.setState({ redirectToHomepage: true });
-                } else {
-                    setTimeout(function () {
-                        alert(
-                            "Wrong credentials! Username and/or password is wrong :("
-                        );
-                    }, 1);
-                }
+                response
+                    .json()
+                    .then((data) => ({ status: response.status, body: data }))
+                    .then((obj) => {
+                        if (obj.status === 200) {
+                            // trick for async alerts
+                            setTimeout(function () {
+                                alert(
+                                    "Login successful! You are now logged in :)"
+                                );
+                            }, 1);
+                            console.log(obj.body);
+                            // session storage
+                            sessionStorage.setItem("username", username);
+                            sessionStorage.setItem(
+                                "currentUserFistName",
+                                obj.body.first
+                            );
+                            sessionStorage.setItem(
+                                "currentUserLastName",
+                                obj.body.last
+                            );
+                            this.props.updateUsername();
+                            this.props.logginHandle();
+                            this.setState({ redirectToHomepage: true });
+                        } else {
+                            setTimeout(function () {
+                                alert(
+                                    "Wrong credentials! Username and/or password is wrong :("
+                                );
+                            }, 1);
+                        }
+                    });
             })
             .catch((error) => {
                 alert("error: " + error);

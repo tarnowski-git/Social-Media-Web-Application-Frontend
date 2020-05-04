@@ -15,6 +15,7 @@ class SinglePost extends Component {
 
         this.onEditMode = this.onEditMode.bind(this);
         this.onSaveChanges = this.onSaveChanges.bind(this);
+        this.onCancelChanges = this.onCancelChanges.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.diffTime = this.diffTime.bind(this);
         this.isPostUpdated = this.isPostUpdated.bind(this);
@@ -65,17 +66,20 @@ class SinglePost extends Component {
     }
 
     onEditMode(event) {
-        console.log("edit mode: " + this.state.onlyReadMode);
         event.preventDefault();
         this.setState({ onlyReadMode: false });
     }
 
     onSaveChanges(event) {
-        console.log("edit mode: " + this.state.onlyReadMode);
         event.preventDefault();
         this.setState({ onlyReadMode: true });
-        this.props.updateEvent(this.state.textareaValue);
         this.setState({ edited: "(edited)" });
+        this.props.updateEvent(this.state.textareaValue);
+    }
+
+    onCancelChanges(event) {
+        event.preventDefault();
+        this.setState({ onlyReadMode: true });
     }
 
     handleChange(event) {
@@ -128,7 +132,10 @@ class SinglePost extends Component {
                     onChange={this.handleChange}
                 />
                 {this.state.onlyReadMode === false && (
-                    <button onClick={this.onSaveChanges}>Save</button>
+                    <React.Fragment>
+                        <button onClick={this.onSaveChanges}>Save</button>
+                        <button onClick={this.onCancelChanges}>Cancel</button>
+                    </React.Fragment>
                 )}
             </div>
         );
