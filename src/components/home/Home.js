@@ -121,6 +121,9 @@ class Home extends Component {
                             <SinglePost
                                 key={post.id}
                                 postId={post.id}
+                                createdAt={post.createdAt}
+                                updatedAt={post.updatedAt}
+                                postUsername={post.user.username}
                                 postOwnerName={
                                     post.user.first + " " + post.user.last
                                 }
