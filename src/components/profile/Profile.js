@@ -8,14 +8,12 @@ class Profile extends Component {
         this.state = {
             userFist: "",
             userLast: "",
-            selectedFile: "",
             picture: "",
             editMode: false,
         };
 
         this.changeEditMode = this.changeEditMode.bind(this);
-        this.handleFileSelected = this.handleFileSelected.bind(this);
-        this.handleUpload = this.handleUpload.bind(this);
+        this.changeDetails = this.changeDetails.bind(this);
     }
 
     componentDidMount() {
@@ -33,46 +31,19 @@ class Profile extends Component {
                 } else {
                     alert("Something went wrong!");
                 }
-                // code to handle the response
             })
             .catch((err) => {
                 console.error("Error: ", err);
             });
     }
 
-    handleUpload() {
-        const image = this.state.selectedFile;
-        if (image === "") {
-            return;
-        }
-
-        const data = new FormData();
-        data.append("file", image);
-        data.append("upload_preset", "socialmediaApp");
-        data.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-        const url = process.env.REACT_APP_CLOUD_API;
-        console.log(url);
-        fetch(url, {
-            method: "POST",
-            body: data,
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                this.setState({ picture: data.url });
-            })
-            .catch((error) => {
-                alert("error: " + error);
-            });
-    }
-
-    handleFileSelected(event) {
-        this.setState({ selectedFile: event.target.files[0] });
-    }
-
     changeEditMode() {
         let newEditMode = !this.state.editMode;
         this.setState({ editMode: newEditMode });
+    }
+
+    changeDetails(first, last, pic) {
+        this.setState({ userFist: first, userLast: last, picture: pic });
     }
 
     render() {
@@ -81,6 +52,7 @@ class Profile extends Component {
                 {this.state.editMode ? (
                     <EditedProfile
                         changeToFalse={this.changeEditMode.bind(this)}
+                        changeDetails={this.changeDetails.bind(this)}
                     />
                 ) : (
                     <div className="ProfilCard">
@@ -90,9 +62,7 @@ class Profile extends Component {
                         </h1>
                         <p className="title">CEO Founder, Example</p>
                         <p>About Me</p>
-                        <button onClick={this.changeEditMode}>Edit Name</button>
-                        <input type="file" onChange={this.handleFileSelected} />
-                        <button onClick={this.handleUpload}>Upload file</button>
+                        <button onClick={this.changeEditMode}>Edit</button>
                     </div>
                 )}
             </div>

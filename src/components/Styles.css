@@ -59,3 +59,17 @@ a:active {
 .userprofile {
     height: 100vh;
 }
+
+.custom-file-upload {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    display: flex;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.custom-file-upload input[type="file"] {
+    display: flex;
+    color: white;
+}
