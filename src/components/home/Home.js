@@ -4,6 +4,7 @@ import "./Home.css";
 import AddPost from "../post/AddPost";
 import Profile from "../profile/Profile";
 import SinglePost from "../post/SinglePost";
+import Footer from "../Footer";
 
 class Home extends Component {
     constructor(props) {
@@ -137,6 +138,7 @@ class Home extends Component {
                         ))}
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }

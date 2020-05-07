@@ -7,7 +7,6 @@ import Login from "./components/login/Login";
 import NavigationBar from "./components/NavigationBar";
 import About from "./components/About";
 import Home from "./components/home/Home";
-import Footer from "./components/Footer";
 import ProfilePage from "./components/profile/ProfilePage";
 
 require("dotenv").config();
@@ -39,11 +38,14 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <NavigationBar
-                        username={this.state}
-                        updateUsername={this.updateUsername}
-                        logginHandle={this.logginHandle}
-                    />
+                    {this.state.loggedIn === true && (
+                        <NavigationBar
+                            username={this.state}
+                            updateUsername={this.updateUsername}
+                            logginHandle={this.logginHandle}
+                        />
+                    )}
+
                     {/* <Switch> returns only one first matching route. */}
                     <Switch>
                         <Route exact path="/">
@@ -66,7 +68,6 @@ class App extends Component {
                         </Route>
                         <Route path="*" component={() => "404 Not Found"} />
                     </Switch>
-                    <Footer />
                 </div>
             </BrowserRouter>
         );

@@ -9,6 +9,7 @@ class Profile extends Component {
             userFist: "",
             userLast: "",
             picture: "",
+            userDetail: [],
             editMode: false,
         };
 
@@ -25,6 +26,8 @@ class Profile extends Component {
             )
             .then((obj) => {
                 if (obj.status === 200) {
+                    console.log(obj.body);
+                    this.setState({ userDetail: obj.body });
                     this.setState({ userFist: obj.body.user.first });
                     this.setState({ userLast: obj.body.user.last });
                     this.setState({ picture: obj.body.user.imageUrl });
@@ -43,16 +46,21 @@ class Profile extends Component {
     }
 
     changeDetails(first, last, pic) {
+        if (pic === "") {
+            pic = this.state.picture;
+        }
         this.setState({ userFist: first, userLast: last, picture: pic });
     }
 
     render() {
+        const { age, city, country, description, sex } = this.state.userDetail;
         return (
             <div>
                 {this.state.editMode ? (
                     <EditedProfile
                         changeToFalse={this.changeEditMode.bind(this)}
                         changeDetails={this.changeDetails.bind(this)}
+                        currentAvatar={this.state.picture}
                     />
                 ) : (
                     <div className="ProfilCard">
@@ -60,8 +68,10 @@ class Profile extends Component {
                         <h1>
                             {this.state.userFist + " " + this.state.userLast}
                         </h1>
-                        <p className="title">CEO Founder, Example</p>
-                        <p>About Me</p>
+                        <p className="title">{description}</p>
+                        <p>Sex: {sex === "F" ? "Female" : "Male"}</p>
+                        <p>Age: {age}</p>
+                        <p>From: {city + ", " + country}</p>
                         <button onClick={this.changeEditMode}>Edit</button>
                     </div>
                 )}

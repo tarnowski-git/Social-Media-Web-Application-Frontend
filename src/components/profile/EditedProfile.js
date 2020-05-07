@@ -1,49 +1,59 @@
 import React, { useState } from "react";
 
-export default ({ changeToFalse, changeDetails }) => {
+export default ({ changeToFalse, changeDetails, currentAvatar }) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [selected, setSelected] = useState("");
     const [avatar, setAvatar] = useState("");
 
     const onSubmit = () => {
-        // const username = sessionStorage.getItem("username");
-        console.log(firstName);
-        console.log(lastName);
+        const username = sessionStorage.getItem("username");
+        if (firstName === "" || lastName === "") {
+            setTimeout(function () {
+                alert(
+                    "Please complete all fields." + firstName + ", " + lastName
+                );
+            }, 1);
+            return;
+        }
+        // if avatar didnt changed, then set previous imgage
+        if (avatar === "") {
+            setAvatar(currentAvatar);
+        }
 
-        changeDetails(firstName, lastName, avatar);
+        const url = "http://localhost:8080/users/" + username;
+        fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8", // Indicates the content
+            },
+            body: JSON.stringify({
+                username: username,
+                password: "",
+                first: firstName,
+                last: lastName,
+                imageUrl: avatar,
+            }),
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    // update profiles info
+                    changeDetails(firstName, lastName, avatar);
 
-        // const url = "http://localhost:8080/users?username=" + username;
-        // fetch(url, {
-        //     method: "PUT",
-        //     headers: {
-        //         "Content-type": "application/json; charset=UTF-8", // Indicates the content
-        //     },
-        //     body: JSON.stringify({
-        //         username: username,
-        //         password: "",
-        //         first: firstName,
-        //         last: lastName,
-        //     }),
-        // })
-        //     .then((response) => {
-        //         if (response.status === 200) {
-        //             setTimeout(function () {
-        //                 alert("User updated.");
-        //             }, 1);
-        //             sessionStorage.setItem("currentUserFistName", firstName);
-        //             sessionStorage.setItem("currentUserLastName", lastName);
-        //         } else if (response.status === 204) {
-        //             setTimeout(function () {
-        //                 alert("No content.");
-        //             }, 1);
-        //         } else {
-        //             alert("Ups, somethings went wrong :/");
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         alert("error: " + error);
-        //     });
+                    setTimeout(function () {
+                        alert("User updated.");
+                    }, 1);
+                } else if (response.status === 204) {
+                    setTimeout(function () {
+                        alert("No content.");
+                    }, 1);
+                } else {
+                    alert("Ups, somethings went wrong :/");
+                }
+            })
+            .catch((error) => {
+                alert("error: " + error);
+            });
 
         setFirstName("");
         setLastName("");
@@ -64,18 +74,16 @@ export default ({ changeToFalse, changeDetails }) => {
         data.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
 
         const url = process.env.REACT_APP_CLOUD_API;
-        console.log(url);
         fetch(url, {
             method: "POST",
             body: data,
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 setAvatar(data.url);
 
                 setTimeout(function () {
-                    alert("Picture has been uloaded.");
+                    alert("Picture has been loaded.");
                 }, 1);
             })
             .catch((error) => {
