@@ -27,7 +27,7 @@ nav {
 
 /* unvisited link */
 a:link {
-    color: white;
+    color: blue;
 }
 
 /* visited link */
@@ -54,4 +54,8 @@ a:active {
 .user-avatar {
     color: white;
     margin-right: 20px;
+}
+
+.userprofile {
+    height: 100vh;
 }

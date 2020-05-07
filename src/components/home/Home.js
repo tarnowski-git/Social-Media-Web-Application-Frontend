@@ -119,6 +119,7 @@ class Home extends Component {
                                 createdAt={post.createdAt}
                                 updatedAt={post.updatedAt}
                                 postUsername={post.user.username}
+                                userAvatar={post.user.imageUrl}
                                 postOwnerName={
                                     post.user.first + " " + post.user.last
                                 }

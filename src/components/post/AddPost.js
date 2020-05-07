@@ -12,6 +12,7 @@ export class AddPost extends Component {
     }
 
     addPost(username, post) {
+        console.log(username);
         console.log(post);
         const url = "http://localhost:8080/posts";
         fetch(url, {
@@ -62,8 +63,6 @@ export class AddPost extends Component {
 
         const post = this.state.textareaValue;
         const activeUser = sessionStorage.getItem("username");
-
-        console.log(post);
 
         if (activeUser !== null) {
             this.addPost(activeUser, post);

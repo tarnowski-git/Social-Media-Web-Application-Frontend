@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import avatar from "../../images/no-img.png";
 import "../home/Home.css";
 
 class SinglePost extends Component {
@@ -98,7 +97,7 @@ class SinglePost extends Component {
             <div className="PostFrame">
                 <div className="TopBar">
                     <div className="avatar">
-                        <img src={avatar} alt={"avatar"} />
+                        <img src={this.props.userAvatar} alt={"avatar"} />
                     </div>
                     <div className="name-time">
                         <span className="name">{this.props.postOwnerName}</span>

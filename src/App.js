@@ -8,6 +8,9 @@ import NavigationBar from "./components/NavigationBar";
 import About from "./components/About";
 import Home from "./components/home/Home";
 import Footer from "./components/Footer";
+import ProfilePage from "./components/profile/ProfilePage";
+
+require("dotenv").config();
 
 class App extends Component {
     constructor(props) {
@@ -57,6 +60,9 @@ class App extends Component {
                         </Route>
                         <Route exact path="/home">
                             <Home logged={this.state.loggedIn} />
+                        </Route>
+                        <Route path="/:userId">
+                            <ProfilePage />
                         </Route>
                         <Route path="*" component={() => "404 Not Found"} />
                     </Switch>

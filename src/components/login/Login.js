@@ -46,14 +46,6 @@ class Login extends Component {
                             console.log(obj.body);
                             // session storage
                             sessionStorage.setItem("username", username);
-                            sessionStorage.setItem(
-                                "currentUserFistName",
-                                obj.body.first
-                            );
-                            sessionStorage.setItem(
-                                "currentUserLastName",
-                                obj.body.last
-                            );
                             this.props.updateUsername();
                             this.props.logginHandle();
                             this.setState({ redirectToHomepage: true });
