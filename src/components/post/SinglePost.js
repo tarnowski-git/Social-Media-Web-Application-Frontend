@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../home/Home.css";
+// import CommentGroup from "../comment/CommentGroup";
 
 class SinglePost extends Component {
     constructor(props) {

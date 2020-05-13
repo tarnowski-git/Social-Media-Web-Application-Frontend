@@ -49,7 +49,7 @@ class Home extends Component {
     };
 
     onUpdateItem = (postId, updatedPostContent) => {
-        const url = "http://localhost:8080/posts?id=" + postId;
+        const url = `http://localhost:8080/posts?id=${postId}`;
         fetch(url, {
             method: "PUT",
             headers: {

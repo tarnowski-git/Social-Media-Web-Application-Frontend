@@ -45,7 +45,6 @@ class App extends Component {
                             logginHandle={this.logginHandle}
                         />
                     )}
-
                     {/* <Switch> returns only one first matching route. */}
                     <Switch>
                         <Route exact path="/">
