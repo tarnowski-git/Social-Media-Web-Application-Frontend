@@ -53,7 +53,7 @@ class Comment extends Component {
                         <strong>{name}</strong>
                         <p>{this.diffTime(createdAt)}</p>
                     </div>
-                    {commentUsername === "Ola" && (
+                    {commentUsername === currentUser && (
                         <div className="dropdown">
                             <button className="dropbtn">...</button>
                             <div className="dropdown-content">

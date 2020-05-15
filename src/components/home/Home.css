@@ -116,12 +116,17 @@ div.avatar img {
     width: 100%;
     border: 2px solid #dddddd;
     border-radius: 5px;
-    margin: auto;
+    margin-bottom: 20px;
     word-wrap: break-word;
     /* outline: none; */
     overflow: hidden;
     resize: none;
     line-height: 1.5;
+}
+
+.btn-posts {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .TopBar {

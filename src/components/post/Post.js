@@ -1,29 +1,37 @@
 import React, { Component } from "react";
 import "../home/Home.css";
-// import CommentGroup from "../comment/CommentGroup";
+import CommentGroup from "../comment/CommentGroup";
 
-class SinglePost extends Component {
+class Post extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             onlyReadMode: true,
             textareaValue: "",
-            created: "",
+            textBeforeSave: "",
             edited: "",
         };
 
-        this.onEditMode = this.onEditMode.bind(this);
         this.onSaveChanges = this.onSaveChanges.bind(this);
         this.onCancelChanges = this.onCancelChanges.bind(this);
+        this.onEditMode = this.onEditMode.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.diffTime = this.diffTime.bind(this);
         this.isPostUpdated = this.isPostUpdated.bind(this);
     }
 
     componentDidMount() {
-        this.setState({ textareaValue: this.props.children });
+        this.setState({ textareaValue: this.props.postBody });
+        this.setState({ textBeforeSave: this.props.postBody });
         this.isPostUpdated(this.props.createdAt, this.props.updatedAt);
+    }
+
+    isPostUpdated(createdAt, updatedAt) {
+        if (createdAt === updatedAt) {
+            this.setState({ edited: "" });
+        } else {
+            this.setState({ edited: " (edited)" });
+        }
     }
 
     diffTime(date) {
@@ -57,14 +65,6 @@ class SinglePost extends Component {
         return fuzzy;
     }
 
-    isPostUpdated(createdAt, updatedAt) {
-        if (createdAt === updatedAt) {
-            this.setState({ edited: "" });
-        } else {
-            this.setState({ edited: " (edited)" });
-        }
-    }
-
     onEditMode(event) {
         event.preventDefault();
         this.setState({ onlyReadMode: false });
@@ -74,12 +74,13 @@ class SinglePost extends Component {
         event.preventDefault();
         this.setState({ onlyReadMode: true });
         this.setState({ edited: "(edited)" });
-        this.props.updateEvent(this.state.textareaValue);
+        this.props.handlePostUpdate(this.state.textareaValue);
     }
 
     onCancelChanges(event) {
         event.preventDefault();
         this.setState({ onlyReadMode: true });
+        this.setState({ textareaValue: this.state.textBeforeSave });
     }
 
     handleChange(event) {
@@ -92,33 +93,38 @@ class SinglePost extends Component {
     }
 
     render() {
+        const {
+            postId,
+            postUsername,
+            postOwnerName,
+            userAvatar,
+            createdAt,
+        } = this.props;
+
+        const { handlePostDelete } = this.props;
+
         const currentUser = sessionStorage.getItem("username");
 
         return (
             <div className="PostFrame">
                 <div className="TopBar">
                     <div className="avatar">
-                        <img src={this.props.userAvatar} alt={"avatar"} />
+                        <img src={userAvatar} alt={"avatar"} />
                     </div>
                     <div className="name-time">
-                        <span className="name">{this.props.postOwnerName}</span>
+                        <span className="name">{postOwnerName}</span>
                         <span className="time">
-                            {this.diffTime(this.props.createdAt) +
-                                " " +
-                                this.state.edited}
+                            {`${this.diffTime(createdAt)} ${this.state.edited}`}
                         </span>
                     </div>
-                    {this.props.postUsername === currentUser && (
+                    {postUsername === currentUser && (
                         <div className="dropdown">
                             <button className="dropbtn">...</button>
                             <div className="dropdown-content">
                                 <a href="/home" onClick={this.onEditMode}>
                                     Edit
                                 </a>
-                                <a
-                                    href="/home"
-                                    onClick={this.props.deleteEvent}
-                                >
+                                <a href="/home" onClick={handlePostDelete}>
                                     Delete
                                 </a>
                             </div>
@@ -132,14 +138,17 @@ class SinglePost extends Component {
                     onChange={this.handleChange}
                 />
                 {this.state.onlyReadMode === false && (
-                    <React.Fragment>
+                    <div className="btn-posts">
                         <button onClick={this.onSaveChanges}>Save</button>
                         <button onClick={this.onCancelChanges}>Cancel</button>
-                    </React.Fragment>
+                    </div>
                 )}
+                <div>
+                    <CommentGroup postId={postId} />
+                </div>
             </div>
         );
     }
 }
 
-export default SinglePost;
+export default Post;

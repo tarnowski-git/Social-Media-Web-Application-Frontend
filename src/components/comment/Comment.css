@@ -1,10 +1,10 @@
 .comment-box {
     border: 2px solid #dedede;
-    background-color: #f1f1f1;
+    background-color: rgb(66, 69, 71);
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
-    width: 400px;
+    width: 380px;
 }
 
 .comment-box p {
@@ -35,7 +35,7 @@
 .add-comment {
     border: 2px solid #dedede;
     background-color: #f1f1f1;
-    width: 400px;
+    width: 380px;
     padding: 10px;
     border-radius: 5px;
 }
@@ -45,15 +45,22 @@
 }
 
 .comment-info-1 strong {
-    width: 100%;
+    width: 50%;
+    float: left;
 }
 
 .comment-info-1 p {
+    width: 25%;
+    float: left;
+}
+
+.TopBar-comment > .dropdown {
     float: right;
 }
 
 .comment-info-2 {
     word-wrap: break-word;
+    float: left;
     width: 100%;
     margin: 0px 0px 0px 40px;
     font-size: 12px;

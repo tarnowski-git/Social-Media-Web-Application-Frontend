@@ -1,11 +1,13 @@
 import React from "react";
-import CommentGroup from "./comment/CommentGroup";
+import PostGroup from "./post/PostGroup";
+// import CommentGroup from "./comment/CommentGroup";
 
 function About() {
     return (
         // "fragment" its a ghost DOM element
         <div>
-            <CommentGroup />
+            {/* <CommentGroup /> */}
+            <PostGroup />
         </div>
     );
 }

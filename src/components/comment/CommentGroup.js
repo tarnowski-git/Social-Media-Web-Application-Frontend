@@ -9,12 +9,15 @@ class CommentGroup extends Component {
 
         this.state = {
             comments: [],
+            addingComment: false,
         };
         this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+        this.showAddComment = this.showAddComment.bind(this);
     }
 
     componentDidMount() {
-        const url = "http://localhost:8080/comments/all";
+        const postId = this.props.postId;
+        const url = `http://localhost:8080/posts/${postId}/comments`;
         fetch(url, {
             method: "GET",
         })
@@ -28,20 +31,27 @@ class CommentGroup extends Component {
                     setTimeout(function () {
                         alert("Comments fetched");
                     }, 1);
-                    this.setState({ comments: obj.body });
+                    const reverse = obj.body.reverse();
+                    this.setState({ comments: reverse });
                 } else {
                     alert("Sorry, something went wrong :/");
                 }
             })
             .catch((error) => {
-                alert("error: " + error);
+                console.log("error99: " + error);
             });
     }
 
+    showAddComment(event) {
+        event.preventDefault();
+        const changeState = !this.state.addingComment;
+        this.setState({ addingComment: changeState });
+    }
+
     handleCommentSubmit(comment) {
-        const userId = 4;
-        const userName = "Ola";
-        const postId = 90;
+        const username = sessionStorage.getItem("username");
+        const postId = this.props.postId;
+
         const url = `http://localhost:8080/posts/${postId}/comments`;
         fetch(url, {
             method: "POST",
@@ -51,8 +61,7 @@ class CommentGroup extends Component {
             },
             body: JSON.stringify({
                 user: {
-                    id: userId,
-                    username: userName,
+                    username: username,
                 },
                 content: comment,
             }),
@@ -81,9 +90,7 @@ class CommentGroup extends Component {
 
     handleCommentDelete(commentId, event) {
         event.preventDefault();
-        console.log(`${commentId}`);
-
-        const postId = 90;
+        const postId = this.props.postId;
         const url = `http://localhost:8080/posts/${postId}/comments/${commentId}`;
         fetch(url, {
             method: "DELETE",
@@ -107,7 +114,6 @@ class CommentGroup extends Component {
 
     renderComments() {
         const { comments } = this.state;
-        // const { postId } = this.props;
 
         return comments.map((comment) => {
             const { id, content, user, createdAt } = comment;
@@ -134,7 +140,17 @@ class CommentGroup extends Component {
         return (
             <div>
                 {this.renderComments()}
-                <CommentAdd handleCommentSubmit={this.handleCommentSubmit} />
+                {this.state.addingComment === false && (
+                    <button onClick={this.showAddComment}>Add a comment</button>
+                )}
+                {this.state.addingComment === true && (
+                    <div>
+                        <CommentAdd
+                            handleCommentSubmit={this.handleCommentSubmit}
+                        />
+                        <button onClick={this.showAddComment}>Cancel</button>
+                    </div>
+                )}
             </div>
         );
     }
