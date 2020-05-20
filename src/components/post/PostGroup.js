@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Post from "./Post";
 import PostAdd from "./PostAdd";
+import Pagination from "../Pagination.";
 
 class PostGroup extends Component {
     constructor(props) {
@@ -8,6 +9,8 @@ class PostGroup extends Component {
 
         this.state = {
             posts: [],
+            currentPage: 1,
+            postsPerPage: 4,
         };
     }
 
@@ -115,12 +118,14 @@ class PostGroup extends Component {
             .then((response) => {
                 if (response.status === 200) {
                     setTimeout(function () {
-                        alert("Post has beem deleted.");
+                        alert("Post has been deleted.");
                     }, 1);
-                    const posts = Object.assign([], this.state.listOfPosts);
+                    const posts = Object.assign([], this.state.posts);
                     const filteredPost = posts.filter((post) => {
                         return post.id !== postId;
                     });
+                    console.log(filteredPost);
+
                     this.setState({ posts: filteredPost }); //replacing data
                 } else {
                     alert(
@@ -131,10 +136,19 @@ class PostGroup extends Component {
             .catch((error) => console.log("error", error));
     }
 
-    renderPosts() {
-        const { posts } = this.state;
+    // Change page
+    handlePaginate(pageNumber) {
+        this.setState({ currentPage: pageNumber });
+    }
 
-        return posts.map((post) => {
+    renderPosts() {
+        const { posts, currentPage, postsPerPage } = this.state;
+
+        const indexOfLastPost = currentPage * postsPerPage;
+        const indexOfFirstPost = indexOfLastPost - postsPerPage;
+        const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+        return currentPosts.map((post) => {
             const { id, body, createdAt, updatedAt, user } = post;
             const { username, first, last, imageUrl } = user;
 
@@ -159,7 +173,12 @@ class PostGroup extends Component {
         return (
             <div>
                 <PostAdd handlePostSubmit={this.handlePostSubmit.bind(this)} />
-                {this.renderPosts()}{" "}
+                {this.renderPosts()}
+                <Pagination
+                    postsPerPage={this.state.postsPerPage}
+                    totalPosts={this.state.posts.length}
+                    handlePaginate={this.handlePaginate.bind(this)}
+                />
             </div>
         );
     }

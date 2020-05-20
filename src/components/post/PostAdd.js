@@ -25,6 +25,9 @@ class PostAdd extends Component {
         event.preventDefault();
 
         this.props.handlePostSubmit(this.state.textareaValue);
+        this.setState({
+            textareaValue: "",
+        });
     }
 
     render() {

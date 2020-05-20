@@ -93,8 +93,8 @@ export default ({ changeToFalse, changeDetails, currentAvatar }) => {
 
     return (
         <div>
-            <button onClick={changeToFalse}>Go back</button>
             <div className="ProfilCard">
+                <button onClick={changeToFalse}>Go back</button>
                 <input
                     type="text"
                     placeholder="first name"

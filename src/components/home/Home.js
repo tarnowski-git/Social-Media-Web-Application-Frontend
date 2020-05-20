@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import "./Home.css";
-import PostAdd from "../post/PostAdd";
 import Profile from "../profile/Profile";
-import Post from "../post/Post";
 import Footer from "../Footer";
 import PostGroup from "../post/PostGroup";
 
