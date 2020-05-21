@@ -20,7 +20,7 @@ class Home extends Component {
         }
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
         this.setState({ redirect: false });
     }
 

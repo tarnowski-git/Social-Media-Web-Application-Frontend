@@ -26,11 +26,9 @@ class PostGroup extends Component {
             )
             .then((obj) => {
                 if (obj.status === 200) {
-                    setTimeout(function () {
-                        alert("Posts has been fetched");
-                    }, 1);
                     obj.body.reverse();
                     this.setState({ posts: obj.body });
+                    console.log("Posts has been fetched");
                 } else {
                     alert("Sorry, something went wrong :/");
                 }

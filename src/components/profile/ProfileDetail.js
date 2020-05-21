@@ -22,7 +22,6 @@ class ProfileDetail extends Component {
             )
             .then((obj) => {
                 if (obj.status === 200) {
-                    console.log(obj.body);
                     this.setState({ details: obj.body });
                     this.setState({ user: obj.body.user });
                 } else {

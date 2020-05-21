@@ -28,10 +28,8 @@ class CommentGroup extends Component {
             )
             .then((obj) => {
                 if (obj.status === 200) {
-                    setTimeout(function () {
-                        alert("Comments fetched");
-                    }, 1);
                     this.setState({ comments: obj.body });
+                    console.log("Comments fetched");
                 } else {
                     alert("Sorry, something went wrong :/");
                 }

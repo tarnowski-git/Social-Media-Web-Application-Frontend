@@ -43,17 +43,16 @@ class Login extends Component {
                     .then((data) => ({ status: response.status, body: data }))
                     .then((obj) => {
                         if (obj.status === 200) {
-                            // trick for async alerts
-                            console.log(
-                                "Login successful! You are now logged in :)"
-                            );
-                            console.log(obj.body);
                             // session storage
                             sessionStorage.setItem("username", username);
                             this.props.updateUsername();
                             this.props.logginHandle();
                             this.setState({ redirectToHomepage: true });
+                            console.log(
+                                "Login successful! You are now logged in :)"
+                            );
                         } else {
+                            // trick for async alerts
                             setTimeout(function () {
                                 alert(
                                     "Wrong credentials! Username and/or password is wrong :("
