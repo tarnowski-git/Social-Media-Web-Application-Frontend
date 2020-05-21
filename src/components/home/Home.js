@@ -20,6 +20,10 @@ class Home extends Component {
         }
     }
 
+    componentWillMount() {
+        this.setState({ redirect: false });
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.logged !== this.props.logged) {
             this.setState({ redirect: true });

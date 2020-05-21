@@ -17,6 +17,12 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        if (sessionStorage.getItem("username") !== null) {
+            this.setState({ redirectToHomepage: true });
+        }
+    }
+
     // Its a call to webservice
     loginUser(username, password) {
         const url = "http://localhost:8080/login";
@@ -38,11 +44,9 @@ class Login extends Component {
                     .then((obj) => {
                         if (obj.status === 200) {
                             // trick for async alerts
-                            setTimeout(function () {
-                                alert(
-                                    "Login successful! You are now logged in :)"
-                                );
-                            }, 1);
+                            console.log(
+                                "Login successful! You are now logged in :)"
+                            );
                             console.log(obj.body);
                             // session storage
                             sessionStorage.setItem("username", username);

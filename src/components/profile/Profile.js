@@ -28,7 +28,6 @@ class Profile extends Component {
             )
             .then((obj) => {
                 if (obj.status === 200) {
-                    console.log(obj.body);
                     this.setState({ userDetail: obj.body });
                     this.setState({ userFirst: obj.body.user.first });
                     this.setState({ userLast: obj.body.user.last });
@@ -40,6 +39,13 @@ class Profile extends Component {
             .catch((err) => {
                 console.error("Error: ", err);
             });
+    }
+
+    componentWillUnmount() {
+        this.setState({ userDetail: [] });
+        this.setState({ userFirst: "" });
+        this.setState({ userLast: "" });
+        this.setState({ picture: "" });
     }
 
     changeEditMode() {
@@ -70,9 +76,24 @@ class Profile extends Component {
                         <img src={this.state.picture} alt={"profil-pic"} />
                         <h1>{`${userFirst} ${userLast}`}</h1>
                         <p className="title">{description}</p>
-                        <p>Sex: {sex === "F" ? "Female" : "Male"}</p>
-                        <p>Age: {age}</p>
-                        <p>From: {city + ", " + country}</p>
+                        <p>
+                            <i
+                                className="fa fa-venus-mars"
+                                aria-hidden="true"
+                            ></i>{" "}
+                            {sex === "F" ? "Female" : "Male"}
+                        </p>
+                        <p>
+                            <i className="fa fa-clock-o" aria-hidden="true"></i>{" "}
+                            {age}
+                        </p>
+                        <p>
+                            <i
+                                className="fa fa-map-marker"
+                                aria-hidden="true"
+                            ></i>{" "}
+                            {city + ", " + country}
+                        </p>
                         <button onClick={this.changeEditMode}>Edit</button>
                     </div>
                 )}

@@ -24,6 +24,16 @@ class App extends Component {
         this.logginHandle = this.logginHandle.bind(this);
     }
 
+    componentDidMount() {
+        if (sessionStorage.getItem("username") !== null) {
+            this.setState({ loggedIn: true });
+        }
+    }
+
+    componentWillUnmount() {
+        this.setState({ loggedIn: false });
+    }
+
     logginHandle = () => {
         this.setState((prevState) => ({ loggedIn: !prevState.loggedIn }));
     };

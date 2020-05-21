@@ -31,8 +31,7 @@ class CommentGroup extends Component {
                     setTimeout(function () {
                         alert("Comments fetched");
                     }, 1);
-                    const reverse = obj.body.reverse();
-                    this.setState({ comments: reverse });
+                    this.setState({ comments: obj.body });
                 } else {
                     alert("Sorry, something went wrong :/");
                 }

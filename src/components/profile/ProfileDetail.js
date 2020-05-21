@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../Styles.css";
+import "font-awesome/css/font-awesome.min.css";
 
 class ProfileDetail extends Component {
     constructor(props) {
@@ -41,10 +42,22 @@ class ProfileDetail extends Component {
             <div className="ProfilCard">
                 <img src={imageUrl} alt={"profil-pic"} />
                 <h1>{`${first} ${last}`}</h1>
-                <p className="title">{description}</p>
-                <p>Sex: {sex === "F" ? "Female" : "Male"}</p>
-                <p>Age: {age}</p>
-                <p>From: {city + ", " + country}</p>
+                <h4>
+                    <span>
+                        <i className="fa fa-venus-mars" aria-hidden="true"></i>
+                        {sex === "F" ? " Female" : " Male"}
+                    </span>
+                    <span>
+                        <i className="fa fa-clock-o" aria-hidden="true"></i>
+                        {` ${age}`}
+                    </span>
+                    <span>
+                        <i className="fa fa-map-marker" aria-hidden="true"></i>
+                        {` ${city}, ${country}`}
+                    </span>
+                </h4>
+                <h2 className="title">About Me</h2>
+                <p>{description}</p>
             </div>
         );
     }
