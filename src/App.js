@@ -7,7 +7,7 @@ import Login from "./components/login/Login";
 import NavigationBar from "./components/NavigationBar";
 import About from "./components/About";
 import Home from "./components/home/Home";
-import ProfilePage from "./components/profile/ProfilePage";
+import ProfileDetail from "./components/profile/ProfileDetail";
 
 require("dotenv").config();
 
@@ -47,24 +47,21 @@ class App extends Component {
                     )}
                     {/* <Switch> returns only one first matching route. */}
                     <Switch>
-                        <Route exact path="/">
+                        <Route path="/" exact>
                             <Login
                                 updateUsername={this.updateUsername}
                                 logginHandle={this.logginHandle}
                             />
                         </Route>
-                        <Route exact path="/registration">
-                            <Registration />
-                        </Route>
-                        <Route exact path="/about">
-                            <About />
-                        </Route>
-                        <Route exact path="/home">
+                        <Route path="/registration" component={Registration} />
+                        <Route path="/about" component={About} />
+                        <Route path="/home" exact>
                             <Home logged={this.state.loggedIn} />
                         </Route>
-                        <Route path="/:userId">
-                            <ProfilePage />
-                        </Route>
+                        <Route
+                            path="/home/:username"
+                            component={ProfileDetail}
+                        />
                         <Route path="*" component={() => "404 Not Found"} />
                     </Switch>
                 </div>

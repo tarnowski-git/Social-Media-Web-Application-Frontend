@@ -6,7 +6,7 @@ class Profile extends Component {
         super(props);
 
         this.state = {
-            userFist: "",
+            userFirst: "",
             userLast: "",
             picture: "",
             userDetail: [],
@@ -19,8 +19,10 @@ class Profile extends Component {
 
     componentDidMount() {
         const username = sessionStorage.getItem("username");
-        const url = "http://localhost:8080/users/details/" + username;
-        fetch(url)
+        const url = `http://localhost:8080/users/details/${username}`;
+        fetch(url, {
+            method: "GET",
+        })
             .then((res) =>
                 res.json().then((data) => ({ status: res.status, body: data }))
             )
@@ -28,7 +30,7 @@ class Profile extends Component {
                 if (obj.status === 200) {
                     console.log(obj.body);
                     this.setState({ userDetail: obj.body });
-                    this.setState({ userFist: obj.body.user.first });
+                    this.setState({ userFirst: obj.body.user.first });
                     this.setState({ userLast: obj.body.user.last });
                     this.setState({ picture: obj.body.user.imageUrl });
                 } else {
@@ -49,11 +51,12 @@ class Profile extends Component {
         if (pic === "") {
             pic = this.state.picture;
         }
-        this.setState({ userFist: first, userLast: last, picture: pic });
+        this.setState({ userFirst: first, userLast: last, picture: pic });
     }
 
     render() {
         const { age, city, country, description, sex } = this.state.userDetail;
+        const { userFirst, userLast } = this.state;
         return (
             <div>
                 {this.state.editMode ? (
@@ -65,9 +68,7 @@ class Profile extends Component {
                 ) : (
                     <div className="ProfilCard">
                         <img src={this.state.picture} alt={"profil-pic"} />
-                        <h1>
-                            {this.state.userFist + " " + this.state.userLast}
-                        </h1>
+                        <h1>{`${userFirst} ${userLast}`}</h1>
                         <p className="title">{description}</p>
                         <p>Sex: {sex === "F" ? "Female" : "Male"}</p>
                         <p>Age: {age}</p>

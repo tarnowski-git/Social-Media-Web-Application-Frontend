@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "../home/Home.css";
 import CommentGroup from "../comment/CommentGroup";
 
@@ -112,7 +113,11 @@ class Post extends Component {
                         <img src={userAvatar} alt={"avatar"} />
                     </div>
                     <div className="name-time">
-                        <span className="name">{postOwnerName}</span>
+                        <span className="name">
+                            <Link to={`/home/${postUsername}`}>
+                                {postOwnerName}
+                            </Link>
+                        </span>
                         <span className="time">
                             {`${this.diffTime(createdAt)} ${this.state.edited}`}
                         </span>

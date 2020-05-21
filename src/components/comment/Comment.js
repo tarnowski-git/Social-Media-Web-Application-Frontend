@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Comment extends Component {
     // eslint-disable-next-line
@@ -51,7 +52,9 @@ class Comment extends Component {
                 </div>
                 <div className="TopBar-comment">
                     <div className="comment-info-1">
-                        <strong>{name}</strong>
+                        <strong>
+                            <Link to={`/home/${commentUsername}`}>{name}</Link>
+                        </strong>
                         <p>{this.diffTime(createdAt)}</p>
                     </div>
                     {commentUsername === currentUser && (

@@ -14,6 +14,12 @@ class Home extends Component {
         };
     }
 
+    componentDidMount() {
+        if (!sessionStorage.getItem("username")) {
+            this.setState({ redirect: true });
+        }
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.logged !== this.props.logged) {
             this.setState({ redirect: true });
