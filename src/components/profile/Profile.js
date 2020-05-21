@@ -63,6 +63,7 @@ class Profile extends Component {
     render() {
         const { age, city, country, description, sex } = this.state.userDetail;
         const { userFirst, userLast } = this.state;
+
         return (
             <div>
                 {this.state.editMode ? (
